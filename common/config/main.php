@@ -5,5 +5,13 @@ return [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
+        'urlManager' => [
+            'baseUrl' => '',
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+            'rules' => [
+                '<action:[a-z0-9\-]+>' => 'site/<action>',
+            ],
+        ],
     ],
 ];
