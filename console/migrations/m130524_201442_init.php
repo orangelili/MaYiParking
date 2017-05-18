@@ -52,7 +52,7 @@ class m130524_201442_init extends Migration
         ], $tableOptions);
 
         $this->createTable('{{%valuation}}', [
-            'per_hour' => $this->integer(),
+            'per_hour' => $this->integer()->defaultValue(15),
 
             'status' => $this->smallInteger()->notNull()->defaultValue(1),
             'created_at' => $this->integer()->notNull(),

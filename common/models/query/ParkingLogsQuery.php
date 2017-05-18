@@ -1,6 +1,8 @@
 <?php
 
-namespace common\models;
+namespace common\models\query;
+
+use common\models\ParkingLogs;
 
 /**
  * This is the ActiveQuery class for [[ParkingLogs]].

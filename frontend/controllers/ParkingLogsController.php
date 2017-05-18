@@ -4,7 +4,7 @@ namespace frontend\controllers;
 
 use Yii;
 use common\models\ParkingLogs;
-use common\models\ParkingLogsSearch;
+use common\models\search\ParkingLogsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
