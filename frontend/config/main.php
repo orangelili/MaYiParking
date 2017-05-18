@@ -22,7 +22,7 @@ return [
         ],
         'session' => [
             // this is the name of the session cookie used for login on the frontend
-            'name' => 'advanced-frontend',
+            'name' => 'mayi-frontend',
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
@@ -36,14 +36,14 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        /*
         'urlManager' => [
+            'baseUrl' => '',
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                '<action:[a-z0-9\-]+>' => 'site/<action>',
             ],
         ],
-        */
     ],
     'params' => $params,
 ];

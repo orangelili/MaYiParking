@@ -28,7 +28,7 @@ class SignupForm extends Model
             ['mobile_phone_number', 'trim'],
             ['mobile_phone_number', 'required'],
             ['mobile_phone_number', 'match', 'pattern' => '/^[1-9]{11}$/'],
-            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This phone number has already been taken.'],
+            ['mobile_phone_number', 'unique', 'targetClass' => '\common\models\User', 'message' => 'This phone number has already been taken.'],
 
             ['password', 'required'],
             ['password', 'string', 'min' => 6],

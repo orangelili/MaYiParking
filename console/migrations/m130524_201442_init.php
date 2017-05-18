@@ -18,9 +18,9 @@ class m130524_201442_init extends Migration
             'auth_key' => $this->string(32)->notNull(),
             'password_hash' => $this->string()->notNull(),
             'password_reset_token' => $this->string()->unique(),
-            'mobile_phone_number' => $this->integer(11)->notNull()->unsigned()->unique(),
+            'mobile_phone_number' => $this->char(11)->notNull()->unique(),
 
-            'status' => $this->smallInteger()->notNull()->defaultValue(10),
+            'status' => $this->smallInteger()->notNull()->defaultValue(1),
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
         ], $tableOptions);
@@ -33,7 +33,7 @@ class m130524_201442_init extends Migration
             'model' => $this->string()->notNull(),
             'license' => $this->string()->notNull(),
 
-            'status' => $this->smallInteger()->notNull()->defaultValue(10),
+            'status' => $this->smallInteger()->notNull()->defaultValue(1),
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
         ], $tableOptions);
@@ -46,7 +46,7 @@ class m130524_201442_init extends Migration
             'location_id' => $this->string(),
             'location' => $this->string(),
 
-            'status' => $this->smallInteger()->notNull()->defaultValue(10),
+            'status' => $this->smallInteger()->notNull()->defaultValue(1),
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
         ], $tableOptions);
@@ -54,7 +54,7 @@ class m130524_201442_init extends Migration
         $this->createTable('{{%valuation}}', [
             'per_hour' => $this->integer(),
 
-            'status' => $this->smallInteger()->notNull()->defaultValue(10),
+            'status' => $this->smallInteger()->notNull()->defaultValue(1),
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
         ], $tableOptions);

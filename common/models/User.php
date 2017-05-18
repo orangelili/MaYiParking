@@ -186,4 +186,9 @@ class User extends ActiveRecord implements IdentityInterface
     {
         $this->password_reset_token = null;
     }
+
+    public function getCars()
+    {
+        return $this->hasMany(Cars::className(), ['user_id' => 'id'])->all();
+    }
 }
