@@ -14,7 +14,7 @@ use yii\web\IdentityInterface;
  * @property string $username
  * @property string $password_hash
  * @property string $password_reset_token
- * @property string $email
+ * @property integer $mobile_phone_number
  * @property string $auth_key
  * @property integer $status
  * @property integer $created_at
@@ -185,5 +185,27 @@ class User extends ActiveRecord implements IdentityInterface
     public function removePasswordResetToken()
     {
         $this->password_reset_token = null;
+    }
+
+    public function getCars()
+    {
+        return $this->hasMany(Cars::className(), ['user_id' => 'id'])->all();
+    }
+
+    public function getCarsSelect()
+    {
+        if (empty($this->getCars())) {
+            return [];
+        }
+        $infos = [];
+        foreach ($this->getCars() as $car){
+            $infos[$car->id] = $car->getCarInfo();
+        }
+        return $infos;
+    }
+
+    public function getParkingLogs()
+    {
+        return $this->hasMany(ParkingLogs::className(), ['user_id' => 'id'])->all();
     }
 }
