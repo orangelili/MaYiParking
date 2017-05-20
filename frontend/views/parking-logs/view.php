@@ -60,6 +60,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => date('Y-m-d H:i:s', $model->updated_at)
             ],
             [
+                'attribute' => 'parking_at',
+                'label' => '入库时间',
+                'value' => is_null($model->parking_at)? '' : date('Y-m-d H:i:s', $model->parking_at)
+            ],
+            [
                 'attribute' => 'money',
                 'label' => '已结算',
                 'value' => number_format($model->money, 2)
