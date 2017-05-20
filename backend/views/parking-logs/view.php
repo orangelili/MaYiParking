@@ -25,6 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'method' => 'post',
                 ],
             ]) ?>
+            <?= Html::a('入库', ['parking', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
         <?php endif;?>
         <?php if ($model->canTake()) :  ?>
             <?= Html::a('取车', ['take', 'id' => $model->id], ['class' => 'btn btn-warning']) ?>
