@@ -50,9 +50,32 @@ class ParkingLogsController extends Controller
         ]);
     }
 
-    public function actionTakeCar()
+    public function actionParking($id)
     {
-        return $this->redirect(['index']);
+        $model = $this->findModel($id);
+        if (!$model->isActive()) {
+            return $this->goBack();
+        }
+        $model->parking();
+        $model->save();
+
+        return $this->render('view', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionTake($id)
+    {
+        $model = $this->findModel($id);
+        if (!$model->canTake()) {
+            return $this->goBack();
+        }
+        $model->take();
+        $model->save();
+
+        return $this->render('view', [
+            'model' => $model,
+        ]);
     }
     /**
      * Displays a single ParkingLogs model.

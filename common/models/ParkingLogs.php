@@ -14,6 +14,7 @@ use yii\behaviors\TimestampBehavior;
  * @property integer $car_id
  * @property string $location_id
  * @property string $location
+ * @property float $money
  * @property integer $status
  * @property integer $created_at
  * @property integer $updated_at
@@ -86,6 +87,7 @@ class ParkingLogs extends \yii\db\ActiveRecord
             'car_id' => 'Car ID',
             'location_id' => 'Location ID',
             'location' => 'Location',
+            'money' => 'Money',
             'status' => 'Status',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
@@ -125,5 +127,23 @@ class ParkingLogs extends \yii\db\ActiveRecord
     public function canTake()
     {
         return $this->status === self::STATE_CAR_IN;
+    }
+
+    public function parking()
+    {
+        $this->status = self::STATE_CAR_IN;
+    }
+
+    public function take()
+    {
+        $this->calculate();
+        $this->status = self::STATE_COMPLETED;
+    }
+
+    public function calculate()
+    {
+        $now = time();
+        $parkingHour = (intval($now) - intval($this->created_at)) / 3600;
+        $this->money = floatval($parkingHour) * 15;
     }
 }

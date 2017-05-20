@@ -93,7 +93,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         return Html::a('取消预约', $url, $options);
                     },
                     'take' => function ($url, $model, $key) {
-                        $url = Url::to(['take-car']);
+                        $url = Url::to(['take', 'id' => $model->id]);
                         $options = [
                             'class' => 'btn btn-warning',
                         ];

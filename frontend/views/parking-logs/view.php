@@ -21,10 +21,14 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= Html::a('取消预约', ['delete', 'id' => $model->id], [
                 'class' => 'btn btn-danger',
                 'data' => [
-                    'confirm' => 'Are you sure you want to delete this item?',
+                    'confirm' => '你确定要取消预约吗?',
                     'method' => 'post',
                 ],
             ]) ?>
+            <?= Html::a('入库', ['parking', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
+        <?php endif;?>
+        <?php if ($model->canTake()) :  ?>
+            <?= Html::a('取车', ['take', 'id' => $model->id], ['class' => 'btn btn-warning']) ?>
         <?php endif;?>
     </p>
 
@@ -54,6 +58,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'updated_at',
                 'label' => '记录更新时间',
                 'value' => date('Y-m-d H:i:s', $model->updated_at)
+            ],
+            [
+                'attribute' => 'money',
+                'label' => '已结算',
+                'value' => number_format($model->money, 2)
             ],
         ],
     ]) ?>
