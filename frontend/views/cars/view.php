@@ -15,8 +15,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+        <?= Html::a('更新', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('删除', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
@@ -28,14 +28,28 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
-            'user_id',
-            'brand',
-            'model',
-            'license',
-            'status',
-            'created_at',
-            'updated_at',
+            [
+                'attribute' => 'brand',
+                'label' => '品牌',
+            ],
+            [
+                'attribute' => 'model',
+                'label' => '车型',
+            ],
+            [
+                'attribute' => 'license',
+                'label' => '车牌',
+            ],
+            [
+                'attribute' => 'created_at',
+                'label' => '创建时间',
+                'value' => date('Y-m-d H:i:s', $model->created_at)
+            ],
+            [
+                'attribute' => 'updated_at',
+                'label' => '更新时间',
+                'value' => date('Y-m-d H:i:s', $model->updated_at)
+            ],
         ],
     ]) ?>
 

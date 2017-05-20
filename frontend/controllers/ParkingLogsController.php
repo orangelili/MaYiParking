@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use Yii;
 use common\models\ParkingLogs;
 use common\models\search\ParkingLogsSearch;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -35,7 +36,12 @@ class ParkingLogsController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->goBack(['/site/login']);
+        }
+
         $searchModel = new ParkingLogsSearch();
+        $searchModel->user_id = Yii::$app->user->identity->id;
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -44,6 +50,10 @@ class ParkingLogsController extends Controller
         ]);
     }
 
+    public function actionTakeCar()
+    {
+        return $this->redirect(['index']);
+    }
     /**
      * Displays a single ParkingLogs model.
      * @param integer $id
@@ -65,13 +75,17 @@ class ParkingLogsController extends Controller
     {
         $model = new ParkingLogs();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+        $cars = Yii::$app->user->identity->getCarsSelect();
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $model->initData(Yii::$app->user->identity);
+            if ($model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
+        return $this->render('create', [
+            'model' => $model,
+            'cars' => $cars,
+        ]);
     }
 
     /**
@@ -84,11 +98,13 @@ class ParkingLogsController extends Controller
     {
         $model = $this->findModel($id);
 
+        $cars = Yii::$app->user->identity->getCarsSelect();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
+                'cars' => $cars,
             ]);
         }
     }
