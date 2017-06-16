@@ -17,11 +17,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode('停车记录') ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <p>
-        <?= Html::a('预约停车', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             [
@@ -91,19 +89,6 @@ $this->params['breadcrumbs'][] = $this->title;
                             $url = '';
                         }
                         return Html::a('取消预约', $url, $options);
-                    },
-                    'take' => function ($url, $model, $key) {
-                        $url = Url::to(['take', 'id' => $model->id]);
-                        $options = [
-                            'class' => 'btn btn-warning',
-                        ];
-                        if (!$model->canTake()) {
-                            $options = [
-                                'class' => 'btn btn-warning disabled',
-                            ];
-                            $url = '';
-                        }
-                        return Html::a('取车', $url, $options);
                     },
                 ],
             ]

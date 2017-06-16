@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "{{%cars}}".
@@ -29,11 +30,21 @@ class Cars extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+    public function behaviors()
+    {
+        return [
+            TimestampBehavior::className(),
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function rules()
     {
         return [
             [['user_id', 'status', 'created_at', 'updated_at'], 'integer'],
-            [['model', 'license', 'created_at', 'updated_at'], 'required'],
+            [['model', 'license'], 'required'],
             [['brand', 'model', 'license'], 'string', 'max' => 255],
         ];
     }
@@ -58,5 +69,20 @@ class Cars extends \yii\db\ActiveRecord
     public function getOwner()
     {
         return $this->hasOne(User::className(), ['id' => 'user_id'])->one();
+    }
+
+    public function getParkingLogs()
+    {
+        return $this->hasMany(ParkingLogs::className(), ['car_id' => 'id'])->all();
+    }
+
+    public function getCarInfo()
+    {
+        return $this->brand . ' ' . $this->model . ' ' . $this->license;
+    }
+
+    public function setUser(User $user)
+    {
+        $this->user_id = $user->id;
     }
 }

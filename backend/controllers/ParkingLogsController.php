@@ -1,6 +1,6 @@
 <?php
 
-namespace frontend\controllers;
+namespace backend\controllers;
 
 use Yii;
 use common\models\ParkingLogs;
@@ -37,11 +37,10 @@ class ParkingLogsController extends Controller
     public function actionIndex()
     {
         if (Yii::$app->user->isGuest) {
-            return $this->goBack(['/site/login']);
+            return $this->goBack();
         }
 
         $searchModel = new ParkingLogsSearch();
-        $searchModel->user_id = Yii::$app->user->identity->id;
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -86,28 +85,6 @@ class ParkingLogsController extends Controller
     {
         return $this->render('view', [
             'model' => $this->findModel($id),
-        ]);
-    }
-
-    /**
-     * Creates a new ParkingLogs model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
-    public function actionCreate()
-    {
-        $model = new ParkingLogs();
-
-        $cars = Yii::$app->user->identity->getCarsSelect();
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            $model->initData(Yii::$app->user->identity);
-            if ($model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
-            }
-        }
-        return $this->render('create', [
-            'model' => $model,
-            'cars' => $cars,
         ]);
     }
 

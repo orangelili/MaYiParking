@@ -191,4 +191,21 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return $this->hasMany(Cars::className(), ['user_id' => 'id'])->all();
     }
+
+    public function getCarsSelect()
+    {
+        if (empty($this->getCars())) {
+            return [];
+        }
+        $infos = [];
+        foreach ($this->getCars() as $car){
+            $infos[$car->id] = $car->getCarInfo();
+        }
+        return $infos;
+    }
+
+    public function getParkingLogs()
+    {
+        return $this->hasMany(ParkingLogs::className(), ['user_id' => 'id'])->all();
+    }
 }

@@ -6,7 +6,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\ParkingLogs */
 
-$this->title = 'Create Parking Logs';
+$this->title = '预约停车';
 $this->params['breadcrumbs'][] = ['label' => 'Parking Logs', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -16,6 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_form', [
         'model' => $model,
+        'cars' => $cars,
     ]) ?>
 
 </div>
